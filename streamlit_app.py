@@ -20,7 +20,9 @@ players = [
 ]
 
 st.set_page_config(page_title="Haribhau Cricket League Auction", layout="centered")
-colored_header("🏏 Haribhau Cricket League Auction", description="Bid players with 100 coins each", color_name="blue-green")
+from streamlit_extras.colored_header import colored_header
+colored_header("🏏 Haribhau Cricket League Auction", description="Bid players with 100 coins each", color_name="violet-70")
+
 
 # Check if auction is over
 if st.session_state.player_index >= len(players):
