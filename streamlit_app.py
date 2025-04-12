@@ -15,13 +15,6 @@ if 'current_bidder' not in st.session_state:
     st.session_state.current_bidder = None
 if 'player_time' not in st.session_state:
     st.session_state.player_time = randint(10, 15)  # Random auction time for each player
-if 'rerun' not in st.session_state:
-    st.session_state.rerun = False  # For rerunning the app
-
-# Trigger rerun if the session_state 'rerun' is set to True
-if 'rerun' in st.session_state and st.session_state.rerun:
-    st.session_state.rerun = False  # Reset the rerun flag
-    st.experimental_rerun()  # Trigger a rerun
 
 # Define the players with their base prices and categories
 players = [
@@ -87,11 +80,14 @@ if st.button("🏁 Finalize Bid"):
         cost = st.session_state.current_bid
         st.session_state.teams[winner].append(current_player['name'])
         st.session_state.coins[winner] -= cost
-    st.session_state.player_index += 1
-    st.session_state.current_bid = 0
-    st.session_state.current_bidder = None
+
+    # Move to the next player after finalizing the bid
+    st.session_state.player_index += 1  # Move to the next player
+    st.session_state.current_bid = 0  # Reset current bid
+    st.session_state.current_bidder = None  # Reset the current bidder
     st.session_state.player_time = randint(10, 15)  # Set a new random auction time for next player
-    st.session_state.rerun = True  # Set the rerun flag to True to trigger re-run
+    
+    st.experimental_rerun()  # Trigger a re-run to load the next player
 
 # Show live team status
 st.divider()
@@ -101,3 +97,4 @@ for col, team in zip((col1, col2), ['Team A', 'Team B']):
     with col:
         st.markdown(f"**{team}**")
         st.markdown(f"Players: {', '.join(st.session_state.teams[team]) if st.session_state.teams[team] else 'No players yet'}")
+
