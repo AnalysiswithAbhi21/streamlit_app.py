@@ -73,7 +73,7 @@ for col, team in zip((col1, col2), ['Team A', 'Team B']):
                 st.session_state.current_bid += 10
                 st.session_state.current_bidder = team
 
-# Finalize bid
+# Finalize bid and move to the next player
 if st.button("🏁 Finalize Bid"):
     if st.session_state.current_bidder:
         winner = st.session_state.current_bidder
@@ -86,8 +86,15 @@ if st.button("🏁 Finalize Bid"):
     st.session_state.current_bid = 0  # Reset current bid
     st.session_state.current_bidder = None  # Reset the current bidder
     st.session_state.player_time = randint(10, 15)  # Set a new random auction time for next player
-    
-    st.experimental_rerun()  # Trigger a re-run to load the next player
+
+# Show "Next Player" button for manual progression
+if st.button("Next Player"):
+    # Ensure the next player is available
+    if st.session_state.player_index < len(players):
+        st.session_state.player_index += 1
+        st.session_state.current_bid = 0  # Reset current bid
+        st.session_state.current_bidder = None  # Reset the current bidder
+        st.session_state.player_time = randint(10, 15)  # Set a new random auction time for next player
 
 # Show live team status
 st.divider()
@@ -97,4 +104,3 @@ for col, team in zip((col1, col2), ['Team A', 'Team B']):
     with col:
         st.markdown(f"**{team}**")
         st.markdown(f"Players: {', '.join(st.session_state.teams[team]) if st.session_state.teams[team] else 'No players yet'}")
-
