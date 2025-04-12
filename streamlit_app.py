@@ -16,29 +16,29 @@ if 'current_bidder' not in st.session_state:
 if 'player_time' not in st.session_state:
     st.session_state.player_time = randint(10, 15)  # Random auction time for each player
 
-# Define the players with their base prices and categories
+# Define the players with their base prices, categories, and image links
 players = [
-    {"name": "Vaishnav", "category": "Batsman", "base_price": 100},
-    {"name": "Sahil", "category": "Bowler", "base_price": 80},
-    {"name": "Daya", "category": "All-rounder", "base_price": 120},
-    {"name": "Zarkar", "category": "Batsman", "base_price": 90},
-    {"name": "Shrnav", "category": "Bowler", "base_price": 70},
-    {"name": "Rohit", "category": "All-rounder", "base_price": 130},
-    {"name": "Abhi", "category": "Batsman", "base_price": 110},
-    {"name": "Bilat", "category": "Bowler", "base_price": 75},
-    {"name": "Prashant", "category": "All-rounder", "base_price": 100},
-    {"name": "Rohan", "category": "Batsman", "base_price": 95}
+    {"name": "Vaishnav", "category": "Batsman", "base_price": 100, "image": "https://via.placeholder.com/150?text=Vaishnav"},
+    {"name": "Sahil", "category": "Bowler", "base_price": 80, "image": "https://via.placeholder.com/150?text=Sahil"},
+    {"name": "Daya", "category": "All-rounder", "base_price": 120, "image": "https://via.placeholder.com/150?text=Daya"},
+    {"name": "Zarkar", "category": "Batsman", "base_price": 90, "image": "https://via.placeholder.com/150?text=Zarkar"},
+    {"name": "Shrnav", "category": "Bowler", "base_price": 70, "image": "https://via.placeholder.com/150?text=Shrnav"},
+    {"name": "Rohit", "category": "All-rounder", "base_price": 130, "image": "https://via.placeholder.com/150?text=Rohit"},
+    {"name": "Abhi", "category": "Batsman", "base_price": 110, "image": "https://via.placeholder.com/150?text=Abhi"},
+    {"name": "Bilat", "category": "Bowler", "base_price": 75, "image": "https://via.placeholder.com/150?text=Bilat"},
+    {"name": "Prashant", "category": "All-rounder", "base_price": 100, "image": "https://via.placeholder.com/150?text=Prashant"},
+    {"name": "Rohan", "category": "Batsman", "base_price": 95, "image": "https://via.placeholder.com/150?text=Rohan"}
 ]
 
 # Set page layout
-st.set_page_config(page_title="Haribhau Cricket League Auction", layout="centered")
+st.set_page_config(page_title="Haribhau Cricket League Auction", layout="wide")
 
 # Display header
 st.markdown("# 🏏 Haribhau Cricket League Auction")
-st.markdown("## 🏆 2 Teams - Auction with 1000 coins each")
+st.markdown("### 🏆 2 Teams - Auction with 1000 coins each")
 st.markdown("### 🎯 Bid players based on their base price and category")
 
-# Show teams and remaining coins
+# Show teams and remaining coins in a neat grid
 st.sidebar.markdown("### 📊 Team Status")
 for team, members in st.session_state.teams.items():
     st.sidebar.markdown(f"**{team}**")
@@ -53,9 +53,10 @@ if st.session_state.player_index >= len(players):
         st.markdown(f"**Players**: {', '.join(members) if members else 'No players assigned'}")
     st.stop()
 
-# Current player being auctioned
+# Current player being auctioned with image
 current_player = players[st.session_state.player_index]
-st.markdown(f"### 👤 Now Auctioning: {current_player['name']}")
+st.markdown(f"### 👤 Now Auctioning: **{current_player['name']}**")
+st.image(current_player['image'], caption=current_player['name'], width=150)
 st.markdown(f"**Category**: {current_player['category']}")
 st.markdown(f"**Base Price**: {current_player['base_price']} Coins")
 st.markdown(f"**💸 Current Bid**: {st.session_state.current_bid}")
