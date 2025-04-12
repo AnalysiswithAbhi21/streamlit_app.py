@@ -90,6 +90,7 @@ if st.button("🏁 Finalize Bid"):
     st.session_state.player_index += 1
     st.session_state.current_bid = 0
     st.session_state.current_bidder = None
+    st.session_state.player_time = randint(10, 15)  # Set a new random auction time for next player
     st.session_state.rerun = True  # Set the rerun flag to True to trigger re-run
 
 # Show live team status
